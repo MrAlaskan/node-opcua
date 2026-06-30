@@ -220,10 +220,11 @@ export class DataTypeFactory {
     public getConstructor(binaryEncodingNodeId: NodeId): ConstructorFunc | null {
         const expandedNodeIdKey = makeExpandedNodeIdKey(binaryEncodingNodeId);
         const structureInfo = this._structureInfoByEncodingMap.get(expandedNodeIdKey);
-        if (!structureInfo) return null;
-        const Constructor = structureInfo.constructor;
-        if (Constructor) {
-            return Constructor;
+        if (structureInfo) {
+            const Constructor = structureInfo.constructor;
+            if (Constructor) {
+                return Constructor;
+            }
         }
         for (const factory of this.baseDataFactories) {
             const Constructor2 = factory.getConstructor(binaryEncodingNodeId);
